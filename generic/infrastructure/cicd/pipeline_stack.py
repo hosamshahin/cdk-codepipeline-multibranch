@@ -106,18 +106,18 @@ class PipelineStack(Stack):
             dev_bootstrap_stage = pipeline.add_stage(dev_app_bootstrap)
 
             # Dev deploy
-            dev_app = AppDeploy(
-                self,
-                "dev",
-                config=config,
-                env={
-                    "account": dev_account,
-                    "region": region,
-                },
-            )
+            # dev_app = AppDeploy(
+            #     self,
+            #     "dev",
+            #     config=config,
+            #     env={
+            #         "account": dev_account,
+            #         "region": region,
+            #     },
+            # )
 
             ## deploy dev stack
-            dev_stage = pipeline.add_stage(dev_app)
+            # dev_stage = pipeline.add_stage(dev_app)
 
             ## integration tests
             # dev_int_tests = self.get_dev_int_tests(
@@ -149,16 +149,16 @@ class PipelineStack(Stack):
             qa_bootstrap_stage = pipeline.add_stage(qa_app_bootstrap)
 
             ## QA deploy
-            qa_app = AppDeploy(
-                self,
-                "qa",
-                config=config,
-                env={
-                    "account": qa_account,
-                    "region": region,
-                },
-            )
-            qa_stage = pipeline.add_stage(qa_app)
+            # qa_app = AppDeploy(
+            #     self,
+            #     "qa",
+            #     config=config,
+            #     env={
+            #         "account": qa_account,
+            #         "region": region,
+            #     },
+            # )
+            # qa_stage = pipeline.add_stage(qa_app)
 
             ## QA acceptance tests
             # qa_acceptance_tests = self.get_qa_acceptance_tests(
@@ -183,16 +183,16 @@ class PipelineStack(Stack):
             prod_bootstrap_stage = pipeline.add_stage(prod_bootstrap)
 
             # Deploy Prod
-            prod_app = AppDeploy(
-                self,
-                "prod",
-                config=config,
-                env={
-                    "account": prod_account,
-                    "region": region,
-                },
-            )
-            prod_stage = pipeline.add_stage(prod_app)
+            # prod_app = AppDeploy(
+            #     self,
+            #     "prod",
+            #     config=config,
+            #     env={
+            #         "account": prod_account,
+            #         "region": region,
+            #     },
+            # )
+            # prod_stage = pipeline.add_stage(prod_app)
 
 
     ########## methods to be overwritten in subclass
