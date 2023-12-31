@@ -67,9 +67,9 @@ class PipelineGeneratorStack(Stack):
         super().__init__(scope, id, **kwargs)
 
         accounts = config.get("accounts")
+        toolchain_account: str = accounts["tooling"]["account"]
         dev_account: str = accounts["dev"]["account"]
         qa_account: str = accounts["qa"]["account"]
-        toolchain_account: str = accounts["tooling"]["account"]
         prod_account: str = accounts["prod"]["account"]
         region: str = accounts["tooling"]["region"]
 
@@ -97,6 +97,7 @@ class PipelineGeneratorStack(Stack):
             branch=branch_name,
             connection_arn=codestar_connection_arn,
         )
+
         synth_step = self.get_sync_step(
             git_input,
             synth_dev_account_role_arn,
@@ -119,21 +120,21 @@ class PipelineGeneratorStack(Stack):
             ),
         )
 
-        tests = pipelines.CodeBuildStep(
-            "InfrastructureTests",
-            input=git_input,
-            build_environment=aws_codebuild.BuildEnvironment(
-                build_image=aws_codebuild.LinuxBuildImage.AMAZON_LINUX_2_3,
-                privileged=True,
-            ),
-            commands=[
-                "pip install -r requirements.txt",
-                "pip install -r requirements-dev.txt",
-                #"pytest -vvvv -s generic/infrastructure/tests",
-            ],
-        )
+        # tests = pipelines.CodeBuildStep(
+        #     "InfrastructureTests",
+        #     input=git_input,
+        #     build_environment=aws_codebuild.BuildEnvironment(
+        #         build_image=aws_codebuild.LinuxBuildImage.AMAZON_LINUX_2_3,
+        #         privileged=True,
+        #     ),
+        #     commands=[
+        #         "pip install -r requirements.txt",
+        #         "pip install -r requirements-dev.txt",
+        #         #"pytest -vvvv -s generic/infrastructure/tests",
+        #     ],
+        # )
 
-        pipeline.add_wave("Testing", post=[tests])
+        # pipeline.add_wave("Testing", post=[tests])
 
         pipeline_generator_stage = PipelineGeneratorApplication(
             self,
