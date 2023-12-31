@@ -31,28 +31,28 @@
     "config": {
       "accounts": {
         "tooling": {
-          "account": "xxx",
-          "region": "eu-west-1"
+          "account": "690901106489",
+          "region": "us-east-1"
         },
         "dev": {
-          "account": "xxx",
-          "region": "eu-west-1"
+          "account": "864571753663",
+          "region": "us-east-1"
         },
         "qa": {
-          "account": "xxx",
-          "region": "eu-west-1"
+          "account": "787236266800",
+          "region": "us-east-1"
         },
         "prod": {
-          "account": "xxx",
-          "region": "eu-west-1"
+          "account": "938711853848",
+          "region": "us-east-1"
         }
       },
-      "internet_vpc": "vpc-xxx",
+      "internet_vpc": "vpc-03e62bffe08de4c1e",
       "development_branch": "main",
       "production_branch": "main",
-      "owner": "wolfgangunger",
+      "owner": "hosamshahin",
       "repo": "cdk-codepipeline-multibranch",
-      "connection_arn": "arn:aws:codestar-connections:eu-west-1:xxx:connection/xx"
+      "connection_arn": "arn:aws:codestar-connections:us-east-1:690901106489:connection/947df6a7-dcd6-4c05-a53c-1173466436d3"
     }
   }
 }

@@ -22,38 +22,38 @@ prod_account: str = accounts["prod"]["account"]
 
 ### Bootstrap Role Stacks only to run in the first time. Comment out after creation
 # iam role for pipeline deploy dev enviroment stacks
-BootstrapRoleStack(
-    app,
-    "bootstrap-dev-role-stack",
-    account="dev",
-    toolchain_account=accounts.get("tooling").get("account"),
-    env={
-        "account": dev_account,
-        "region": region,
-    },
-)
+# BootstrapRoleStack(
+#     app,
+#     "bootstrap-dev-role-stack",
+#     account="dev",
+#     toolchain_account=accounts.get("tooling").get("account"),
+#     env={
+#         "account": dev_account,
+#         "region": region,
+#     },
+# )
 # iam role for pipeline deploy qa enviroment stacks
-BootstrapRoleStack(
-    app,
-    "bootstrap-qa-role-stack",
-    account="dev",
-    toolchain_account=accounts.get("tooling").get("account"),
-    env={
-        "account": qa_account,
-        "region": region,
-    },
-)
+# BootstrapRoleStack(
+#     app,
+#     "bootstrap-qa-role-stack",
+#     account="dev",
+#     toolchain_account=accounts.get("tooling").get("account"),
+#     env={
+#         "account": qa_account,
+#         "region": region,
+#     },
+# )
 # iam role for pipeline deploy prod enviroment stacks
-BootstrapRoleStack(
-    app,
-    "bootstrap-prod-role-stack",
-    account="dev",
-    toolchain_account=accounts.get("tooling").get("account"),
-    env={
-        "account": prod_account,
-        "region": region,
-    },
-)
+# BootstrapRoleStack(
+#     app,
+#     "bootstrap-prod-role-stack",
+#     account="dev",
+#     toolchain_account=accounts.get("tooling").get("account"),
+#     env={
+#         "account": prod_account,
+#         "region": region,
+#     },
+# )
 
 ## normal Pipeline Dev/QA on one branch
 ProjectPipelineStack(
@@ -64,7 +64,7 @@ ProjectPipelineStack(
     config={**config},
 )
 
-## feature branch pipeline 
+## feature branch pipeline
 config = app.node.try_get_context("config")
 accounts = config.get("accounts")
 branch_name = app.node.try_get_context("branch_name")

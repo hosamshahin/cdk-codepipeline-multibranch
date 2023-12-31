@@ -37,7 +37,6 @@ class PipelineStack(Stack):
         synth_dev_account_role_arn = (
             f"arn:aws:iam::{dev_account}:role/codebuild-role-from-toolchain-account"
         )
-
         synth_qa_account_role_arn = (
             f"arn:aws:iam::{qa_account}:role/codebuild-role-from-toolchain-account"
         )
@@ -47,7 +46,7 @@ class PipelineStack(Stack):
 
         # creating the pipline with  synch action
         git_input = self.get_connection(repo_owner,repo,config,development_pipeline,codestar_connection_arn)
-        
+
         synth_step = self.get_synth_step(
             git_input,
             synth_dev_account_role_arn,
@@ -59,8 +58,8 @@ class PipelineStack(Stack):
             self,
             id,
             #
-            pipeline_name=id,   
-            #            
+            pipeline_name=id,
+            #
             synth=synth_step,
             cross_account_keys=True,
             code_build_defaults=pipelines.CodeBuildOptions(
@@ -212,7 +211,7 @@ class PipelineStack(Stack):
             connection_arn=codestar_connection_arn,
         )
         return git_input
-    
+
     def get_synth_step(
         self,
         git_input,
