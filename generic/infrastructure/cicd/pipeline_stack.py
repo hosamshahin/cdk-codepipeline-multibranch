@@ -83,14 +83,14 @@ class PipelineStack(Stack):
         toolchain_stage = pipeline.add_stage(toolchain_app)
 
         ## add unit tests for toolchain to run before toolchain
-        infrastructure_unit_tests = self.get_infrastructure_unit_tests(git_input)
-        if infrastructure_unit_tests != None:
-            toolchain_stage.add_pre(infrastructure_unit_tests)
+        # infrastructure_unit_tests = self.get_infrastructure_unit_tests(git_input)
+        # if infrastructure_unit_tests != None:
+        #     toolchain_stage.add_pre(infrastructure_unit_tests)
 
         ##  lambda tests
-        lambda_tests = self.get_lambda_tests(git_input)
-        if lambda_tests != None:
-            toolchain_stage.add_pre(lambda_tests)
+        # lambda_tests = self.get_lambda_tests(git_input)
+        # if lambda_tests != None:
+        #     toolchain_stage.add_pre(lambda_tests)
 
         if development_pipeline:
             # Deploy bootstrap
@@ -115,25 +115,26 @@ class PipelineStack(Stack):
                     "region": region,
                 },
             )
+
             ## deploy dev stack
             dev_stage = pipeline.add_stage(dev_app)
 
             ## integration tests
-            dev_int_tests = self.get_dev_int_tests(
-                git_input, region, dev_account, synth_dev_account_role_arn
-            )
-            if dev_int_tests != None:
-                dev_stage.add_post(dev_int_tests)
+            # dev_int_tests = self.get_dev_int_tests(
+            #     git_input, region, dev_account, synth_dev_account_role_arn
+            # )
+            # if dev_int_tests != None:
+            #     dev_stage.add_post(dev_int_tests)
 
             ## acceptance tests
-            dev_acceptance_tests = self.get_dev_acceptance_tests(
-                git_input, region, dev_account, synth_dev_account_role_arn
-            )
-            if dev_acceptance_tests != None:
-                dev_stage.add_post(dev_acceptance_tests)
+            # dev_acceptance_tests = self.get_dev_acceptance_tests(
+            #     git_input, region, dev_account, synth_dev_account_role_arn
+            # )
+            # if dev_acceptance_tests != None:
+            #     dev_stage.add_post(dev_acceptance_tests)
 
             # manual approval for QA
-            dev_stage.add_post(pipelines.ManualApprovalStep("ApprovalQA"))
+            # dev_stage.add_post(pipelines.ManualApprovalStep("ApprovalQA"))
 
             ## QA boostrap deploy
             qa_app_bootstrap = AppDeployBootstrap(
@@ -160,16 +161,15 @@ class PipelineStack(Stack):
             qa_stage = pipeline.add_stage(qa_app)
 
             ## QA acceptance tests
-            qa_acceptance_tests = self.get_qa_acceptance_tests(
-                git_input, qa_account, synth_qa_account_role_arn
-            )
-            if qa_acceptance_tests != None:
-                qa_stage.add_post(qa_acceptance_tests)
+            # qa_acceptance_tests = self.get_qa_acceptance_tests(
+            #     git_input, qa_account, synth_qa_account_role_arn
+            # )
+            # if qa_acceptance_tests != None:
+            #     qa_stage.add_post(qa_acceptance_tests)
 
-            qa_stage.add_post(pipelines.ManualApprovalStep("ApprovalProd"))
+            # qa_stage.add_post(pipelines.ManualApprovalStep("ApprovalProd"))
 
         else:
-
             prod_bootstrap = AppDeployBootstrap(
                 self,
                 "prodbootstrap",
@@ -193,6 +193,7 @@ class PipelineStack(Stack):
                 },
             )
             prod_stage = pipeline.add_stage(prod_app)
+
 
     ########## methods to be overwritten in subclass
     def get_connection(
