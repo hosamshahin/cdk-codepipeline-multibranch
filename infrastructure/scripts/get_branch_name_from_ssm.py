@@ -26,7 +26,7 @@ if __name__ == "__main__":
             )
             if branch_chars:
                 response = ssm_client.get_parameter(
-                    Name='featureb5',
+                    Name=branch_chars,
                 )
                 branch_name = response.get("Parameter", {}).get("Value", "")
                 print(branch_name)
