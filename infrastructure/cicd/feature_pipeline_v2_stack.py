@@ -68,7 +68,8 @@ class FeaturePipelineStack(PipelineStack):
         synth_dev_account_role_arn,
         synth_qa_account_role_arn,
         synth_prod_account_role_arn,
-        feature_pipeline_suffix
+        feature_pipeline_suffix,
+        branch_name
     ):
         synth_step = pipelines.CodeBuildStep(
             "Synth",
