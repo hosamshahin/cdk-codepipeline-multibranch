@@ -15,14 +15,14 @@ from infrastructure.cicd.toolchain_deploy import ToolchainDeploy
 
 class PipelineStack(Stack):
     def __init__(
-        self,
-        scope: Construct,
-        id: str,
-        development_pipeline: bool,
-        config: dict = None,
-        feature_pipeline_suffix: str = '',
-        **kwargs,
-    ):
+            self,
+            scope: Construct,
+            id: str,
+            development_pipeline: bool,
+            config: dict = None,
+            feature_pipeline_suffix: str = '',
+            **kwargs,
+        ):
         super().__init__(scope, id, **kwargs)
 
         accounts = config.get("accounts")

@@ -8,7 +8,13 @@ from infrastructure.batch.job_defs_stack import JobDefsStack
 
 
 class AppDeployBootstrap(Stage):
-    def __init__(self, scope: Construct, id: str, config: dict = None, **kwargs):
+    def __init__(
+            self,
+            scope: Construct,
+            id: str,
+            config: dict = None,
+            **kwargs
+        ):
         super().__init__(scope, id, **kwargs)
 
         # example stack which should be deployed on bootstap before the others deployments of stacks
@@ -21,7 +27,13 @@ class AppDeployBootstrap(Stage):
 
 
 class AppDeploy(Stage):
-    def __init__(self, scope: Construct, id: str, config: dict = None, **kwargs):
+    def __init__(
+            self,
+            scope: Construct,
+            id: str,
+            config: dict = None,
+            **kwargs
+        ):
         super().__init__(scope, id, **kwargs)
 
         # s3 bucket Stack Example
