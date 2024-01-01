@@ -13,6 +13,7 @@ class AppDeployBootstrap(Stage):
             scope: Construct,
             id: str,
             config: dict = None,
+            branch_name: str = '',
             **kwargs
         ):
         super().__init__(scope, id, **kwargs)
@@ -20,7 +21,7 @@ class AppDeployBootstrap(Stage):
         # example stack which should be deployed on bootstap before the others deployments of stacks
         ecr_repo = EcrStack(
             self,
-            "EcrRepoStack",
+            f"{branch_name}-EcrRepoStack" if branch_name else "EcrRepoStack",
             config=config,
             synthesizer=DefaultStackSynthesizer(),
         )

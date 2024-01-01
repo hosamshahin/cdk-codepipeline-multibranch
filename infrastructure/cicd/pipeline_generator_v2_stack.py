@@ -67,11 +67,11 @@ class PipelineGeneratorStack(Stack):
         self,
         scope: Construct,
         id: str,
-        branch_name: str,
         pipeline_template: str,
         branch_prefix: str,
         feature_pipeline_suffix: str,
         config: dict = None,
+        branch_name: str = '',
         **kwargs,
     ):
         super().__init__(scope, id, **kwargs)

@@ -58,18 +58,19 @@ prod_account: str = accounts["prod"]["account"]
 # )
 
 ## normal Pipeline Dev/QA on one branch
+branch_name = app.node.try_get_context("branch_name")
 ProjectPipelineStack(
     app,
     "cdk-pipeline-multi-branch",
     development_pipeline=True,
     env=accounts.get("tooling"),
     config={**config},
+    branch_name=branch_name if branch_name else config["development_branch"],
 )
 
 ## feature branch pipeline
 config = app.node.try_get_context("config")
 accounts = config.get("accounts")
-branch_name = app.node.try_get_context("branch_name")
 pipeline_template = "feature-branch-pipeline-template"
 
 PipelineGeneratorStack(
@@ -77,7 +78,7 @@ PipelineGeneratorStack(
     "feature-branch-pipeline-generator",
     branch_name=branch_name if branch_name else config["development_branch"],
     pipeline_template=pipeline_template,
-    branch_prefix="^(feature|bug|hotfix)/",
+    branch_prefix="^(feature|bug|hotfix)-",
     feature_pipeline_suffix="-FeatureBranchPipeline",
     env=accounts.get("tooling"),
     config={**config},

@@ -21,6 +21,7 @@ class PipelineStack(Stack):
             development_pipeline: bool,
             config: dict = None,
             feature_pipeline_suffix: str = '',
+            branch_name: str = '',
             **kwargs,
         ):
         super().__init__(scope, id, **kwargs)
@@ -77,6 +78,7 @@ class PipelineStack(Stack):
             self,
             "toolchain",
             config=config,
+            branch_name=branch_name,
             env={
                 "account": toolchain_account,
                 "region": region,
@@ -101,6 +103,7 @@ class PipelineStack(Stack):
                 self,
                 "devbootstrap",
                 config=config,
+                branch_name=branch_name,
                 env={
                     "account": dev_account,
                     "region": region,
@@ -144,6 +147,7 @@ class PipelineStack(Stack):
                 self,
                 "qabootstrap",
                 config=config,
+                branch_name=branch_name,
                 env={
                     "account": qa_account,
                     "region": region,
@@ -177,6 +181,7 @@ class PipelineStack(Stack):
                 self,
                 "prodbootstrap",
                 config=config,
+                branch_name=branch_name,
                 env={
                     "account": prod_account,
                     "region": region,

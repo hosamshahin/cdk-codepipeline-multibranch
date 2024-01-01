@@ -9,6 +9,7 @@ class ProjectPipelineStack(PipelineStack):
         id: str,
         development_pipeline: bool,
         config: dict = None,
+        branch_name: str = '',
         **kwargs,
     ):
         super().__init__(
@@ -16,6 +17,7 @@ class ProjectPipelineStack(PipelineStack):
             id,
             development_pipeline=development_pipeline,
             config=config,
+            branch_name=branch_name,
             **kwargs,
         )
 

@@ -43,13 +43,11 @@ def verify_webhook(secret, data, hmac_header):
     ).hexdigest()
     return hexdigest == received_hmac
 
-
 #def dict_haskey(d, k):
 #    if k in d.keys():
 #        return True
 #    else:
 #        return False
-
 
 def save_branch_name_in_ssm(branch_name):
     branch_chars = re.sub("[^0-9a-zA-Z-]+", "", str(branch_name))
@@ -86,6 +84,7 @@ def create_feature_pipeline_from_template(
 def delete_feature_pipeline(pipeline_name):
     codepipeline_client = boto3.client("codepipeline")
     response = codepipeline_client.delete_pipeline(name=pipeline_name)
+
 
 def handler(event, context):
     '''
