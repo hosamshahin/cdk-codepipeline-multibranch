@@ -122,6 +122,7 @@ class PipelineGeneratorStack(Stack):
             pipeline_name=id,
             synth=synth_step,
             cross_account_keys=True,
+            self_mutation=False,
             code_build_defaults=pipelines.CodeBuildOptions(
                 build_environment=BuildEnvironment(
                     build_image=aws_codebuild.LinuxBuildImage.STANDARD_5_0,
