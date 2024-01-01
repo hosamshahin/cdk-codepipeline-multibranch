@@ -20,6 +20,7 @@ class PipelineStack(Stack):
         id: str,
         development_pipeline: bool,
         config: dict = None,
+        feature_pipeline_suffix: str = '',
         **kwargs,
     ):
         super().__init__(scope, id, **kwargs)
@@ -52,7 +53,7 @@ class PipelineStack(Stack):
             synth_dev_account_role_arn,
             synth_qa_account_role_arn,
             synth_prod_account_role_arn,
-            ''
+            feature_pipeline_suffix
         )
 
         pipeline = CodePipeline(

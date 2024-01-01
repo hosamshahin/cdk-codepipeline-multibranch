@@ -99,6 +99,7 @@ class FeaturePipelineStack(PipelineStack):
 
     def get_synth_step_commands(self) -> list:
         commands = [
+            "echo $CODEBUILD_INITIATOR",
             "npm install -g aws-cdk",
             "python -m pip install -r requirements.txt",
             "set -e;BRANCH=$(python infrastructure/scripts/get_branch_name_from_ssm.py); cdk list -c branch_name=$BRANCH",
