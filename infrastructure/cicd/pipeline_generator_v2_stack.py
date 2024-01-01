@@ -18,6 +18,11 @@ from infrastructure.cicd.feature_pipeline_v2_stack import (
 )
 
 class PipelineGeneratorApplication(Stage):
+    '''
+    Stage consists of two stacks
+    - Github Webhook API
+    - Template pipeline
+    '''
     def __init__(
         self,
         scope: Construct,
@@ -53,6 +58,11 @@ class PipelineGeneratorApplication(Stage):
 
 
 class PipelineGeneratorStack(Stack):
+    '''
+    Creates the pipeline Which deploys two stacks
+    - tempalte pipeline
+    - API gateway
+    '''
     def __init__(
         self,
         scope: Construct,
@@ -98,7 +108,7 @@ class PipelineGeneratorStack(Stack):
             connection_arn=codestar_connection_arn,
         )
 
-        synth_step = self.get_sync_step(
+        synth_step = self.get_synth_step(
             git_input,
             synth_dev_account_role_arn,
             synth_qa_account_role_arn,
@@ -151,7 +161,7 @@ class PipelineGeneratorStack(Stack):
         pipeline.add_stage(pipeline_generator_stage)
 
     ########## methods to be overwritten in subclass
-    def get_sync_step(
+    def get_synth_step(
         self,
         git_input,
         synth_dev_account_role_arn,
@@ -162,7 +172,7 @@ class PipelineGeneratorStack(Stack):
         synth_step = pipelines.CodeBuildStep(
             "Synth",
             input=git_input,
-            commands=self.get_sync_step_commands(),
+            commands=self.get_synth_step_commands(),
             env={"BRANCH": branch_name},
             role_policy_statements=[
                 aws_iam.PolicyStatement(
@@ -178,7 +188,7 @@ class PipelineGeneratorStack(Stack):
         )
         return synth_step
 
-    def get_sync_step_commands(self) -> list:
+    def get_synth_step_commands(self) -> list:
         commands = [
             "npm install -g aws-cdk",
             "python -m pip install -r requirements.txt",

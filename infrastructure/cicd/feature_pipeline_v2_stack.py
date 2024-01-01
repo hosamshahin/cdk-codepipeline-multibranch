@@ -12,11 +12,13 @@ from aws_cdk.pipelines import CodePipeline
 
 from infrastructure.cicd.app_deploy import AppDeploy, AppDeployBootstrap
 from infrastructure.cicd.toolchain_deploy import ToolchainDeploy
-from infrastructure.cicd.toolchain_deploy import ToolchainDeploy
 
 from generic.infrastructure.cicd.pipeline_stack import PipelineStack
 
 class FeaturePipelineStack(PipelineStack):
+    '''
+    Inherit form PipelineStack, which is a stack that creates application deployment pipeline
+    '''
     def __init__(
         self,
         scope: Construct,
@@ -34,14 +36,12 @@ class FeaturePipelineStack(PipelineStack):
             config=config,
             **kwargs,
         )
-       
-        
-    
-# this is the feature branch pipeline 
-# it got the same superclass as the normal pipeline, thus same actions to synth, deploy and test
-# you can setup a different feature pipline clss instead, for example without deployment or with less testes or whatever
-# you can also create different pipelines with the pipeline generator, for example faster pipelines with less methods/actions
-# or full piplines
+
+    # this is the feature branch pipeline
+    # it got the same superclass as the normal pipeline, thus same actions to synth, deploy and test
+    # you can setup a different feature pipline class instead, for example without deployment or with less testes or whatever
+    # you can also create different pipelines with the pipeline generator, for example faster pipelines with less methods/actions
+    # or full piplines
 
     ## overwritten methods
     ## the source step must be overwritten for branch name
@@ -59,8 +59,9 @@ class FeaturePipelineStack(PipelineStack):
             connection_arn=codestar_connection_arn,
         )
         return git_input
+
     ## the synth step must be overwritten to adapt the branch name
-    def get_sync_step(
+    def get_synth_step(
         self,
         git_input,
         synth_dev_account_role_arn,
@@ -75,7 +76,7 @@ class FeaturePipelineStack(PipelineStack):
                 build_image=aws_codebuild.LinuxBuildImage.STANDARD_5_0,
                 privileged=True,
             ),
-            commands=self.get_sync_step_commands(),
+            commands=self.get_synth_step_commands(),
             env={"feature_pipeline_suffix": feature_pipeline_suffix},
             role_policy_statements=[
                 iam.PolicyStatement(
@@ -96,7 +97,7 @@ class FeaturePipelineStack(PipelineStack):
         )
         return synth_step
 
-    def get_sync_step_commands(self) -> list:
+    def get_synth_step_commands(self) -> list:
         commands = [
             "npm install -g aws-cdk",
             "python -m pip install -r requirements.txt",

@@ -52,6 +52,7 @@ class PipelineStack(Stack):
             synth_dev_account_role_arn,
             synth_qa_account_role_arn,
             synth_prod_account_role_arn,
+            ''
         )
 
         pipeline = CodePipeline(
@@ -206,9 +207,7 @@ class PipelineStack(Stack):
     ):
         git_input = pipelines.CodePipelineSource.connection(
             repo_string=f"{repo_owner}/{repo}",
-            branch=config["development_branch"]
-            if development_pipeline
-            else config["production_branch"],
+            branch=config["development_branch"] if development_pipeline else config["production_branch"],
             connection_arn=codestar_connection_arn,
         )
         return git_input
@@ -219,6 +218,7 @@ class PipelineStack(Stack):
         synth_dev_account_role_arn,
         synth_qa_account_role_arn,
         synth_prod_account_role_arn,
+        feature_pipeline_suffix
     ):
         synth_step = pipelines.CodeBuildStep(
             "Synth",
