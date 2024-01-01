@@ -13,7 +13,12 @@ ssm_client = boto3.client("ssm")
 
 feature_pipeline_suffix = os.getenv("feature_pipeline_suffix")
 branch_chars = ""
+print("branch_chars")
+print(branch_chars)
 branch_name = ""
+print("branch_name")
+print(branch_name)
+
 
 if __name__ == "__main__":
     # CODEBUILD_INITIATOR="codepipeline/feature-branch-pipeline"
