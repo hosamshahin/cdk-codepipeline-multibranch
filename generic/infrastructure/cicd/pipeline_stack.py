@@ -62,6 +62,7 @@ class PipelineStack(Stack):
             #
             pipeline_name=id,
             #
+            self_mutation=False,
             synth=synth_step,
             cross_account_keys=True,
             code_build_defaults=pipelines.CodeBuildOptions(
