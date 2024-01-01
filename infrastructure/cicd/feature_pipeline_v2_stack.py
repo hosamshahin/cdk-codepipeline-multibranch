@@ -34,6 +34,7 @@ class FeaturePipelineStack(PipelineStack):
             id,
             development_pipeline=True,
             config=config,
+            feature_pipeline_suffix=feature_pipeline_suffix,
             **kwargs,
         )
 
