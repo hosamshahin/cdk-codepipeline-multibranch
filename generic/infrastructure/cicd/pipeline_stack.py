@@ -231,6 +231,7 @@ class PipelineStack(Stack):
             "Synth",
             input=git_input,
             commands=self.get_synth_step_commands(),
+            env={"feature_pipeline_suffix": feature_pipeline_suffix},
             role_policy_statements=[
                 iam.PolicyStatement(
                     actions=["sts:AssumeRole"],
