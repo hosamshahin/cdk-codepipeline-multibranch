@@ -13,29 +13,20 @@ ssm_client = boto3.client("ssm")
 
 feature_pipeline_suffix = os.getenv("feature_pipeline_suffix")
 branch_chars = ""
-print("branch_chars")
-print(branch_chars)
 branch_name = ""
-print("branch_name")
-print(branch_name)
 
 
 if __name__ == "__main__":
     # CODEBUILD_INITIATOR="codepipeline/feature-branch-pipeline"
     CODEBUILD_INITIATOR_LIST = os.getenv("CODEBUILD_INITIATOR").split("/")
-    print("CODEBUILD_INITIATOR_LIST")
-    print(CODEBUILD_INITIATOR_LIST)
     if len(CODEBUILD_INITIATOR_LIST) >= 2:
         if CODEBUILD_INITIATOR_LIST[0] == "codepipeline":
             branch_chars = CODEBUILD_INITIATOR_LIST[-1].replace(
                 feature_pipeline_suffix, ""
             )
-            print("branch_chars")
-            print(branch_chars)
             if branch_chars:
                 response = ssm_client.get_parameter(
-                    Name=branch_chars,
+                    Name='featureb4',
                 )
                 branch_name = response.get("Parameter", {}).get("Value", "")
-                print("branch_name")
                 print(branch_name)
