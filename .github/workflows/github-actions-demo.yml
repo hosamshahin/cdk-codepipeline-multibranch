@@ -5,9 +5,9 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - 'feature/**'
-      - 'bug/**'
-      - 'hotfix/**'
+      - 'feature-**'
+      - 'bug-**'
+      - 'hotfix-**'
   pull_request:
       types: [closed]
   delete:
