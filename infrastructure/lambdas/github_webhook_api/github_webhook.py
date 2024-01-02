@@ -72,27 +72,23 @@ def create_feature_pipeline_from_template(
     )
 
     pipeline_describe = response.get("pipeline", {})
-
     pipeline_describe["name"] = pipeline_name
-    pipeline_describe["stages"][0]["actions"][0]["configuration"][
-        "BranchName"
-    ] = branch_name
+    pipeline_describe["stages"][0]["actions"][0]["configuration"]["BranchName"] = branch_name
 
     print(json.dumps(pipeline_describe))
-
     stages = pipeline_describe["stages"]
 
-    for i in stages:
-        actions = stages[i]
-        for j in actions:
+    for i in range(len(stages)):
+        stage = stages[i]
+        actions = stage['actions']
+        for j in range(len(actions)):
             action = actions[j]
-            configuratoin = action['configuratoin']
-            if 'StackName' in configuratoin.keys():
-                stack_name = configuratoin['StackName']
-                stages[i]['actions'][j]['configuratoin']['StackName'] = f"{branch_name}-{stack_name}"
+            configuration = action['configuration']
+            if 'StackName' in configuration.keys():
+                stack_name = configuration['StackName']
+                stages[i]['actions'][j]['configuration']['StackName'] = f"{branch_name}-{stack_name}"
 
     pipeline_describe["stages"] = stages
-
     print(json.dumps(pipeline_describe))
 
     response = codepipeline_client.create_pipeline(pipeline=pipeline_describe)
