@@ -35,6 +35,7 @@ class FeaturePipelineStack(PipelineStack):
             development_pipeline=True,
             config=config,
             feature_pipeline_suffix=feature_pipeline_suffix,
+            branch_name=feature_branch_name,
             **kwargs,
         )
 

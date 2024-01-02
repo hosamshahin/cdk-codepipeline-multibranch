@@ -78,6 +78,23 @@ def create_feature_pipeline_from_template(
         "BranchName"
     ] = branch_name
 
+    print(json.dumps(pipeline_describe))
+
+    stages = pipeline_describe["stages"]
+
+    for i in stages:
+        actions = stages[i]
+        for j in actions:
+            action = actions[j]
+            configuratoin = action['configuratoin']
+            if 'StackName' in configuratoin.keys():
+                stack_name = configuratoin['StackName']
+                stages[i]['actions'][j]['configuratoin']['StackName'] = f"{branch_name}-{stack_name}"
+
+    pipeline_describe["stages"] = stages
+
+    print(json.dumps(pipeline_describe))
+
     response = codepipeline_client.create_pipeline(pipeline=pipeline_describe)
 
 

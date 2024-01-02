@@ -76,12 +76,12 @@ pipeline_template = "feature-branch-pipeline-template"
 PipelineGeneratorStack(
     app,
     "feature-branch-pipeline-generator",
-    branch_name=branch_name if branch_name else config["development_branch"],
     pipeline_template=pipeline_template,
     branch_prefix="^(feature|bug|hotfix)-",
     feature_pipeline_suffix="-FeatureBranchPipeline",
     env=accounts.get("tooling"),
     config={**config},
+    branch_name=branch_name if branch_name else config["development_branch"],
 )
 
 app.synth()
